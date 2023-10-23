@@ -28,7 +28,15 @@ const project = new awscdk.AwsCdkConstructLibrary({
   peerDeps: [] /* Peer dependencies of this module. */,
   description:
     'AWS CDK L2 construct for aws code star connection' /* The description is just a string that helps people understand the purpose of the package. */,
-  devDeps: [] /* Build dependencies for this module. */,
+  devDeps: [
+    'commitizen',
+    'cz-customizable',
+  ] /* Build dependencies for this module. */,
   packageName: '@jttc/aws-codestarconnection' /* The "name" in package.json. */,
 });
+
+project.addScripts({
+  commit: './node_modules/cz-customizable/standalone.js',
+});
+
 project.synth();

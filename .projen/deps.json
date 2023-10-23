@@ -20,6 +20,14 @@
       "type": "build"
     },
     {
+      "name": "commitizen",
+      "type": "build"
+    },
+    {
+      "name": "cz-customizable",
+      "type": "build"
+    },
+    {
       "name": "eslint-config-prettier",
       "type": "build"
     },
