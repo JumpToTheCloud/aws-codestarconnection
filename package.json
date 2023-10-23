@@ -28,7 +28,7 @@
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",
     "projen": "npx projen",
-    "commit": "cz"
+    "commit": "./node_modules/cz-customizable/standalone.js"
   },
   "author": {
     "name": "Antonio Márquez Pérez",
