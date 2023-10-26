@@ -24,7 +24,11 @@ module.exports = {
     { value: 'WIP', name: 'WIP:      Work in progress' },
   ],
 
-  scopes: [{ name: 'codestarconnection' }, { name: 'projen' }],
+  scopes: [
+    { name: 'codestarconnection' },
+    { name: 'projen' },
+    { name: 'docs' },
+  ],
 
   usePreparedCommit: true, // to re-use commit from ./.git/COMMIT_EDITMSG
   allowTicketNumber: false,
