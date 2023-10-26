@@ -127,8 +127,8 @@ deployDocs?.addJob('deploy-docs', {
       name: 'Get the version',
       id: 'getVersion',
       run: [
-        'echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`"',
-        'echo run: echo "version=VERSION::${GITHUB_REF/refs/tags/}" >> "$GITHUB_OUTPUT"',
+        'echo "version=$(git describe --tags --abbrev=0)"',
+        'echo "version=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"',
       ].join('\n'),
     },
     {
