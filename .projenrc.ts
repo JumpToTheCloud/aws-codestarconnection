@@ -124,6 +124,7 @@ deployDocs?.addJob('deploy-docs', {
         VERSION: '${{ github.event.release.tag_name }}',
       },
       run: [
+        'echo ${{ env.VERSION }}',
         'mkdocs build',
         'mike deploy --push --update-aliases ${{ env.VERSION }} ${{ env.ALIAS }}',
         'mike set-default latest',
