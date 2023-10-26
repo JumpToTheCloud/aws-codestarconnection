@@ -56,20 +56,7 @@ project.addTask('docs:serve', {
 
 const deployDocs = project.github?.addWorkflow('deploy-docs');
 deployDocs?.on({
-  workflowDispatch: {
-    inputs: {
-      version: {
-        required: true,
-        type: 'string',
-        description: 'Version to build and publish docs',
-      },
-      alias: {
-        required: true,
-        type: 'string',
-        description: 'Alias to associate version (latest, stage)',
-      },
-    },
-  },
+  workflowDispatch: {},
   workflowRun: {
     workflows: ['release'],
     types: ['completed'],
@@ -124,9 +111,17 @@ deployDocs?.addJob('deploy-docs', {
       ].join('\n'),
     },
     {
+      name: 'Setup docs deploy',
+      run: [
+        'git config user.name "github-actions"',
+        'git config user.email "github-actions@github.com',
+      ].join('\n'),
+    },
+    {
       name: 'Build and deploy documentation',
       env: {
-        ALIAS: '${{ inputs.alias }}',
+        ALIAS: 'latest',
+        VERSION: '${{ github.event.release.tag_name }}',
       },
       run: [
         'mkdocs build',
