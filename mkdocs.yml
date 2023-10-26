@@ -1,0 +1,60 @@
+site_name: AWS Code Star Connection Construct Library
+repo_url: https://github.com/JumpToTheCloud/aws-codestarconnection
+
+nav:
+  - Homepage:
+      - index.md
+
+theme:
+  name: material
+  font:
+    text: Ubuntu
+  palette:
+    - scheme: default
+      primary: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - header.autohide
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.instant
+    - navigation.indexes
+    - content.code.annotate
+    - content.code.copy
+    - toc.follow
+    - toc.integrate
+    - announce.dismiss
+    - navigation.tabs
+
+extra:
+  version:
+    provider: mike
+    default: latest
+
+plugins:
+  - mike:
+      version_selector: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - attr_list
+  - tables
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg

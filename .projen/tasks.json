@@ -109,6 +109,22 @@
         }
       ]
     },
+    "docs:build": {
+      "name": "docs:build",
+      "steps": [
+        {
+          "exec": "mkdocs build"
+        }
+      ]
+    },
+    "docs:serve": {
+      "name": "docs:serve",
+      "steps": [
+        {
+          "exec": "mkdocs serve -a localhost:8099"
+        }
+      ]
+    },
     "eject": {
       "name": "eject",
       "description": "Remove projen from the project",

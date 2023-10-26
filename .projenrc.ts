@@ -1,5 +1,7 @@
 import { awscdk } from 'projen';
+import { JobPermission } from 'projen/lib/github/workflows-model';
 import { TrailingComma } from 'projen/lib/javascript';
+
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Antonio Márquez Pérez',
   authorAddress: 'antonio.marquez@jumptothecloud.tech',
@@ -24,6 +26,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
       verbose: true,
     },
   },
+  github: true,
   deps: [] /* Runtime dependencies of this module. */,
   peerDeps: [] /* Peer dependencies of this module. */,
   description:
@@ -37,6 +40,61 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
 project.addScripts({
   commit: './node_modules/cz-customizable/standalone.js',
+});
+
+project.addGitIgnore('site');
+
+project.prettier?.addIgnorePattern('*.md');
+
+project.addTask('docs:build', {
+  exec: 'mkdocs build',
+});
+
+project.addTask('docs:serve', {
+  exec: 'mkdocs serve -a localhost:8099',
+});
+
+const deployDocs = project.github?.addWorkflow('deploy-docs');
+deployDocs?.on({
+  workflowDispatch: {},
+  workflowRun: {
+    workflows: ['release'],
+    types: ['completed'],
+  },
+});
+
+deployDocs?.addJob('deploy-docs', {
+  permissions: {
+    contents: JobPermission.WRITE,
+  },
+  runsOn: ['ubuntu-latest'],
+  steps: [
+    {
+      uses: 'actions/checkout@v4',
+    },
+    {
+      uses: 'actions/setup-python@v4',
+      with: {
+        pythonVersion: '3.x',
+      },
+    },
+    {
+      run: 'echo "cache_id=$(date --utc "+%V")" >> $GITHUB_ENV',
+    },
+    {
+      uses: 'actions/cache@v3',
+      with: {
+        key: 'mkdocs-material-${{ env.cache_id }}',
+        path: '.cache',
+      },
+    },
+    {
+      run: 'pip install mkdocs-material',
+    },
+    {
+      run: 'mkdocs gh-deploy --force',
+    },
+  ],
 });
 
 project.synth();
