@@ -83,6 +83,12 @@ deployDocs?.addJob('deploy-docs', {
     pages: JobPermission.WRITE,
   },
   runsOn: ['ubuntu-latest'],
+  outputs: {
+    getVersion: {
+      stepId: 'getVersion',
+      outputName: 'version',
+    },
+  },
   steps: [
     {
       uses: 'actions/checkout@v4',
@@ -120,13 +126,13 @@ deployDocs?.addJob('deploy-docs', {
     {
       name: 'Get the version',
       id: 'getVersion',
-      run: 'echo ::set-output name=VERSION::${GITHUB_REF/refs/tags//}',
+      run: 'echo run: echo "version=VERSION::${GITHUB_REF/refs/tags/}" >> "$GITHUB_OUTPUT"',
     },
     {
       name: 'Build and deploy documentation',
       env: {
         ALIAS: 'latest',
-        VERSION: '${{ github.event.release.tag_name }}',
+        VERSION: '${{ needs.deploy-docs.outputs.version }}',
       },
       run: [
         'echo ${{ env.VERSION }}',
