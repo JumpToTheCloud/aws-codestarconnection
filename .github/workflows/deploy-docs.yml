@@ -46,7 +46,9 @@ jobs:
           git config user.email github-actions@github.com
       - name: Get the version
         id: getVersion
-        run: 'echo run: echo "version=VERSION::${GITHUB_REF/refs/tags/}" >> "$GITHUB_OUTPUT"'
+        run: |-
+          echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`"
+          echo run: echo "version=VERSION::${GITHUB_REF/refs/tags/}" >> "$GITHUB_OUTPUT"
       - name: Build and deploy documentation
         env:
           ALIAS: latest
