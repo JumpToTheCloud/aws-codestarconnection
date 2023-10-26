@@ -54,29 +54,6 @@ project.addTask('docs:serve', {
   exec: 'mkdocs serve -a localhost:8099',
 });
 
-const prLint = project.github?.tryFindWorkflow('pull-request-lint');
-
-prLint?.updateJob('validate', {
-  name: 'Validate PR title',
-  runsOn: ['ubuntu-latest'],
-  permissions: {
-    pullRequests: JobPermission.WRITE,
-  },
-  steps: [
-    {
-      uses: 'amannn/action-semantic-pull-request@v5.0.2',
-      env: {
-        GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
-      },
-      with: {
-        types: ['feat', 'fix', 'chore', 'docs'].join('\n'),
-        requireScope: false,
-        githubBaseUrl: '${{ github.api_url }}',
-      },
-    },
-  ],
-});
-
 const deployDocs = project.github?.addWorkflow('deploy-docs');
 deployDocs?.on({
   workflowDispatch: {},
