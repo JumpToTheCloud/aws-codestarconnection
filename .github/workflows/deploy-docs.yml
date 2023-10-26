@@ -2,12 +2,31 @@
 
 name: deploy-docs
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        type: string
+        description: Version to build and publish docs
+      alias:
+        required: true
+        type: string
+        description: Alias to associate version (latest, stage)
   workflow_run:
     workflows:
       - release
     types:
       - completed
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+        description: Version to build and publish docs
+      alias:
+        required: true
+        type: string
+        description: Alias to associate version (latest, stage)
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
@@ -17,11 +36,20 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
-          pythonVersion: 3.x
+          pythonVersion: "3.8"
       - run: echo "cache_id=$(date --utc "+%V")" >> $GITHUB_ENV
       - uses: actions/cache@v3
         with:
           key: mkdocs-material-${{ env.cache_id }}
           path: .cache
-      - run: pip install mkdocs-material
-      - run: mkdocs gh-deploy --force
+      - name: Install doc generations dependencies
+        run: |-
+          pip install --upgrade pip
+          pip install -r docs/requirements.txt
+      - name: Build and deploy documentation
+        env:
+          ALIAS: ${{ inputs.alias }}
+        run: |-
+          mkdocs build
+          mike deploy --update-aliases --no-redirect ${{ env.VERSION }} ${{ env.ALIAS }} --branch backup-gh-pages
+          mike set-default latest --branch backup-gh-pages

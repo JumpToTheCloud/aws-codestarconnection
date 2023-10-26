@@ -56,16 +56,44 @@ project.addTask('docs:serve', {
 
 const deployDocs = project.github?.addWorkflow('deploy-docs');
 deployDocs?.on({
-  workflowDispatch: {},
+  workflowDispatch: {
+    inputs: {
+      version: {
+        required: true,
+        type: 'string',
+        description: 'Version to build and publish docs',
+      },
+      alias: {
+        required: true,
+        type: 'string',
+        description: 'Alias to associate version (latest, stage)',
+      },
+    },
+  },
   workflowRun: {
     workflows: ['release'],
     types: ['completed'],
+  },
+  workflowCall: {
+    inputs: {
+      version: {
+        required: true,
+        type: 'string',
+        description: 'Version to build and publish docs',
+      },
+      alias: {
+        required: true,
+        type: 'string',
+        description: 'Alias to associate version (latest, stage)',
+      },
+    },
   },
 });
 
 deployDocs?.addJob('deploy-docs', {
   permissions: {
     contents: JobPermission.WRITE,
+    pages: JobPermission.WRITE,
   },
   runsOn: ['ubuntu-latest'],
   steps: [
@@ -75,7 +103,7 @@ deployDocs?.addJob('deploy-docs', {
     {
       uses: 'actions/setup-python@v4',
       with: {
-        pythonVersion: '3.x',
+        pythonVersion: '3.8',
       },
     },
     {
@@ -89,10 +117,22 @@ deployDocs?.addJob('deploy-docs', {
       },
     },
     {
-      run: 'pip install mkdocs-material',
+      name: 'Install doc generations dependencies',
+      run: [
+        'pip install --upgrade pip',
+        'pip install -r docs/requirements.txt',
+      ].join('\n'),
     },
     {
-      run: 'mkdocs gh-deploy --force',
+      name: 'Build and deploy documentation',
+      env: {
+        ALIAS: '${{ inputs.alias }}',
+      },
+      run: [
+        'mkdocs build',
+        'mike deploy --update-aliases --no-redirect ${{ env.VERSION }} ${{ env.ALIAS }} --branch backup-gh-pages',
+        'mike set-default latest --branch backup-gh-pages',
+      ].join('\n'),
     },
   ],
 });
