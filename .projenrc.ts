@@ -127,6 +127,7 @@ deployDocs?.addJob('deploy-docs', {
         'mkdocs build',
         'mike deploy --update-aliases --no-redirect ${{ env.VERSION }} ${{ env.ALIAS }} --branch backup-gh-pages',
         'mike set-default latest --branch backup-gh-pages',
+        'mkdocs gh-deploy --force',
       ].join('\n'),
     },
   ],
