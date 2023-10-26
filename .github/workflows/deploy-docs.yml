@@ -42,6 +42,9 @@ jobs:
         run: |-
           git config user.name github-actions
           git config user.email github-actions@github.com
+      - name: Get the version
+        id: getVersion
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs/tags//}
       - name: Build and deploy documentation
         env:
           ALIAS: latest

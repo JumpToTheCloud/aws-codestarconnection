@@ -118,6 +118,11 @@ deployDocs?.addJob('deploy-docs', {
       ].join('\n'),
     },
     {
+      name: 'Get the version',
+      id: 'getVersion',
+      run: 'echo ::set-output name=VERSION::${GITHUB_REF/refs/tags//}',
+    },
+    {
       name: 'Build and deploy documentation',
       env: {
         ALIAS: 'latest',
