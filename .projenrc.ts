@@ -69,7 +69,7 @@ prLint?.updateJob('validate', {
         GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
       },
       with: {
-        types: 'feat, fix, chore, docs',
+        types: ['feat', 'fix', 'chore', 'docs'].join('\n'),
         requireScope: false,
         githubBaseUrl: '${{ github.api_url }}',
       },
