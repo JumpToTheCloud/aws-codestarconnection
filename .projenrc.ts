@@ -113,8 +113,8 @@ deployDocs?.addJob('deploy-docs', {
     {
       name: 'Setup docs deploy',
       run: [
-        'git config user.name "github-actions',
-        'git config user.email "github-actions@github.com',
+        'git config user.name github-actions',
+        'git config user.email github-actions@github.com',
       ].join('\n'),
     },
     {
