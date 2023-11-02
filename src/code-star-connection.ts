@@ -6,6 +6,7 @@ import {
   Tag,
 } from 'aws-cdk-lib';
 import { CfnConnection } from 'aws-cdk-lib/aws-codestarconnections';
+import { IGrantable, Grant } from 'aws-cdk-lib/aws-iam';
 
 import { Construct } from 'constructs';
 
@@ -256,6 +257,32 @@ export interface ICodeStarConnection extends IResource {
    * The ARN of the connection.
    */
   readonly connectionArn: string;
+
+  /**
+   * Grant the given principal identity permissions to perform the actions on this code star connection
+   */
+  grant(grantee: IGrantable, ...actions: string[]): Grant;
+
+  /**
+   * Grant the given identity permissions to use this code start connection.
+   */
+  grantUse(grantee: IGrantable): Grant;
+
+  /**
+   * Grant the given identity permission to connection full access to the code star connection
+   */
+  grantConnectionFullAccess(grantee: IGrantable): Grant;
+
+  /**
+   * Grant the given identity full access to AWS CodeStar Connections
+   * so that the user can add, update, and delete connections
+   */
+  grantAdmin(grantee: IGrantable): Grant;
+
+  /**
+   * you want to grant an IAM user in your account read-only access to the connections in your AWS account.
+   */
+  grantRead(grantee: IGrantable): Grant;
 }
 
 export abstract class CodeStarConnectionBase
@@ -271,6 +298,87 @@ export abstract class CodeStarConnectionBase
    * The ARN of the Code Star connection
    */
   public abstract readonly connectionArn: string;
+
+  /**
+   * Grant the given principal identity permissions to perform the actions on this code star connection
+   */
+  public grant(grantee: IGrantable, ...actions: string[]) {
+    return Grant.addToPrincipal({
+      grantee,
+      actions,
+      resourceArns: [this.connectionArn],
+    });
+  }
+
+  /**
+   * Grant the given identity permissions to use this code star connetion
+   */
+  public grantUse(grantee: IGrantable): Grant {
+    return this.grant(grantee, CodeStarConnectionPolicyActions.USE_CONNECTION);
+  }
+
+  /**
+   * Grant the given identity permission to full access to the code star connection
+   * @param grantee
+   * @returns
+   * @see https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-clisdk
+   */
+  public grantConnectionFullAccess(grantee: IGrantable): Grant {
+    return this.grant(
+      grantee,
+      CodeStarConnectionPolicyActions.CREATE_CONNECTION,
+      CodeStarConnectionPolicyActions.DELETE_CONNECTION,
+      CodeStarConnectionPolicyActions.USE_CONNECTION,
+      CodeStarConnectionPolicyActions.GET_CONNECTION,
+      CodeStarConnectionPolicyActions.LIST_CONNECTIONS,
+      CodeStarConnectionPolicyActions.TAG_RESOURCE,
+      CodeStarConnectionPolicyActions.LIST_TAGS_FOR_RESOURCE,
+      CodeStarConnectionPolicyActions.UNTAG_RESOURCE
+    );
+  }
+
+  /**
+   * you want to grant an IAM user in your AWS account full access to AWS CodeStar Connections,
+   * so that the user can add, update, and delete connections.
+   * @param grantee
+   * @returns
+   * @see https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-fullaccess
+   */
+  public grantAdmin(grantee: IGrantable): Grant {
+    return this.grant(
+      grantee,
+      CodeStarConnectionPolicyActions.CREATE_CONNECTION,
+      CodeStarConnectionPolicyActions.DELETE_CONNECTION,
+      CodeStarConnectionPolicyActions.USE_CONNECTION,
+      CodeStarConnectionPolicyActions.GET_CONNECTION,
+      CodeStarConnectionPolicyActions.LIST_CONNECTIONS,
+      CodeStarConnectionPolicyActions.LIST_INSTALLATION_TARGETS,
+      CodeStarConnectionPolicyActions.GET_INSTALLATION_URL,
+      CodeStarConnectionPolicyActions.START_OAUTH_HANDSHAKE,
+      CodeStarConnectionPolicyActions.UPDATE_CONNECTION_INSTALLATION,
+      CodeStarConnectionPolicyActions.GET_INDIVIDUAL_ACCESS_TOKEN,
+      CodeStarConnectionPolicyActions.TAG_RESOURCE,
+      CodeStarConnectionPolicyActions.LIST_TAGS_FOR_RESOURCE,
+      CodeStarConnectionPolicyActions.UNTAG_RESOURCE
+    );
+  }
+
+  /**
+   * you want to grant an IAM user in your account read-only access to the connections in your AWS account
+   * @param grantee
+   * @returns
+   * @see https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-readonly
+   */
+  public grantRead(grantee: IGrantable): Grant {
+    return this.grant(
+      grantee,
+      CodeStarConnectionPolicyActions.GET_CONNECTION,
+      CodeStarConnectionPolicyActions.LIST_CONNECTIONS,
+      CodeStarConnectionPolicyActions.LIST_INSTALLATION_TARGETS,
+      CodeStarConnectionPolicyActions.GET_INSTALLATION_URL,
+      CodeStarConnectionPolicyActions.LIST_TAGS_FOR_RESOURCE
+    );
+  }
 }
 
 export interface CodeStarConnectionProps {
@@ -296,7 +404,7 @@ export interface CodeStarConnectionProps {
   readonly tags?: Tag[];
 
   /**
-   * Determine what happens to the repository when the resource/stack is deleted.
+   * Determine what happens to the code star connection when the resource/stack is deleted.
    *
    * @default RemovalPolicy.Retain
    */

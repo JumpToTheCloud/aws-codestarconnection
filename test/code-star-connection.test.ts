@@ -1,6 +1,12 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import { CodeStarConnection, CodeStarConnectionProviderType } from '../src';
+import { AnyPrincipal, Role } from 'aws-cdk-lib/aws-iam';
+
+import {
+  CodeStarConnection,
+  CodeStarConnectionPolicyActions,
+  CodeStarConnectionProviderType,
+} from '../src';
 
 describe('Code Star Connection', () => {
   // GIVEN
@@ -54,5 +60,168 @@ describe('Code Star Connection', () => {
     expect(() =>
       Template.fromStack(app.synth().getStackArtifact(stack.stackId).template)
     ).toThrowError();
+  });
+});
+
+describe('Grants permisions', () => {
+  it('should grant use connection', () => {
+    // GIVEN
+    const app = new App();
+    const stack = new Stack(app, 'TestStack');
+
+    // WHEN
+    const codestartConnection = new CodeStarConnection(
+      stack,
+      'CodeStarConnection',
+      {
+        connectionName: 'test-connection',
+        providerType: CodeStarConnectionProviderType.GITHUB,
+      }
+    );
+
+    const role = new Role(stack, 'Role', {
+      assumedBy: new AnyPrincipal(),
+    });
+
+    codestartConnection.grantUse(role);
+
+    Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
+      PolicyDocument: {
+        Statement: [
+          {
+            Action: CodeStarConnectionPolicyActions.USE_CONNECTION,
+            Effect: 'Allow',
+          },
+        ],
+      },
+    });
+  });
+
+  it('should grant connection Full Access', () => {
+    // GIVEN
+    const app = new App();
+    const stack = new Stack(app, 'TestStack');
+
+    // WHEN
+    const codestartConnection = new CodeStarConnection(
+      stack,
+      'CodeStarConnection',
+      {
+        connectionName: 'test-connection',
+        providerType: CodeStarConnectionProviderType.GITHUB,
+      }
+    );
+
+    const role = new Role(stack, 'Role', {
+      assumedBy: new AnyPrincipal(),
+    });
+
+    codestartConnection.grantConnectionFullAccess(role);
+
+    Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
+      PolicyDocument: {
+        Statement: [
+          {
+            Action: [
+              CodeStarConnectionPolicyActions.CREATE_CONNECTION,
+              CodeStarConnectionPolicyActions.DELETE_CONNECTION,
+              CodeStarConnectionPolicyActions.USE_CONNECTION,
+              CodeStarConnectionPolicyActions.GET_CONNECTION,
+              CodeStarConnectionPolicyActions.LIST_CONNECTIONS,
+              CodeStarConnectionPolicyActions.TAG_RESOURCE,
+              CodeStarConnectionPolicyActions.LIST_TAGS_FOR_RESOURCE,
+              CodeStarConnectionPolicyActions.UNTAG_RESOURCE,
+            ],
+            Effect: 'Allow',
+          },
+        ],
+      },
+    });
+  });
+
+  it('should grant Admin Access', () => {
+    // GIVEN
+    const app = new App();
+    const stack = new Stack(app, 'TestStack');
+
+    // WHEN
+    const codestartConnection = new CodeStarConnection(
+      stack,
+      'CodeStarConnection',
+      {
+        connectionName: 'test-connection',
+        providerType: CodeStarConnectionProviderType.GITHUB,
+      }
+    );
+
+    const role = new Role(stack, 'Role', {
+      assumedBy: new AnyPrincipal(),
+    });
+
+    codestartConnection.grantAdmin(role);
+
+    Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
+      PolicyDocument: {
+        Statement: [
+          {
+            Action: [
+              CodeStarConnectionPolicyActions.CREATE_CONNECTION,
+              CodeStarConnectionPolicyActions.DELETE_CONNECTION,
+              CodeStarConnectionPolicyActions.USE_CONNECTION,
+              CodeStarConnectionPolicyActions.GET_CONNECTION,
+              CodeStarConnectionPolicyActions.LIST_CONNECTIONS,
+              CodeStarConnectionPolicyActions.LIST_INSTALLATION_TARGETS,
+              CodeStarConnectionPolicyActions.GET_INSTALLATION_URL,
+              CodeStarConnectionPolicyActions.START_OAUTH_HANDSHAKE,
+              CodeStarConnectionPolicyActions.UPDATE_CONNECTION_INSTALLATION,
+              CodeStarConnectionPolicyActions.GET_INDIVIDUAL_ACCESS_TOKEN,
+              CodeStarConnectionPolicyActions.TAG_RESOURCE,
+              CodeStarConnectionPolicyActions.LIST_TAGS_FOR_RESOURCE,
+              CodeStarConnectionPolicyActions.UNTAG_RESOURCE,
+            ],
+            Effect: 'Allow',
+          },
+        ],
+      },
+    });
+  });
+
+  it('should grant Read Access', () => {
+    // GIVEN
+    const app = new App();
+    const stack = new Stack(app, 'TestStack');
+
+    // WHEN
+    const codestartConnection = new CodeStarConnection(
+      stack,
+      'CodeStarConnection',
+      {
+        connectionName: 'test-connection',
+        providerType: CodeStarConnectionProviderType.GITHUB,
+      }
+    );
+
+    const role = new Role(stack, 'Role', {
+      assumedBy: new AnyPrincipal(),
+    });
+
+    codestartConnection.grantRead(role);
+
+    Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
+      PolicyDocument: {
+        Statement: [
+          {
+            Action: [
+              CodeStarConnectionPolicyActions.GET_CONNECTION,
+              CodeStarConnectionPolicyActions.LIST_CONNECTIONS,
+              CodeStarConnectionPolicyActions.LIST_INSTALLATION_TARGETS,
+              CodeStarConnectionPolicyActions.GET_INSTALLATION_URL,
+              CodeStarConnectionPolicyActions.LIST_TAGS_FOR_RESOURCE,
+            ],
+            Effect: 'Allow',
+          },
+        ],
+      },
+    });
   });
 });
