@@ -85,8 +85,6 @@ describe('Grants permisions', () => {
 
     codestartConnection.grantUse(role);
 
-    console.log(JSON.stringify(Template.fromStack(stack), null, 2));
-
     Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
       PolicyDocument: {
         Statement: [
