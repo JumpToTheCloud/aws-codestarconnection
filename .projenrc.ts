@@ -61,21 +61,45 @@ deployDocs?.on({
     workflows: ['release'],
     types: ['completed'],
   },
+  workflowCall: {
+    inputs: {
+      version: {
+        required: true,
+        type: 'string',
+        description: 'Version to build and publish docs',
+      },
+      alias: {
+        required: true,
+        type: 'string',
+        description: 'Alias to associate version (latest, stage)',
+      },
+    },
+  },
 });
 
 deployDocs?.addJob('deploy-docs', {
   permissions: {
     contents: JobPermission.WRITE,
+    pages: JobPermission.WRITE,
   },
   runsOn: ['ubuntu-latest'],
+  outputs: {
+    getVersion: {
+      stepId: 'getVersion',
+      outputName: 'version',
+    },
+  },
   steps: [
     {
       uses: 'actions/checkout@v4',
+      with: {
+        'fetch-depth': 0,
+      },
     },
     {
       uses: 'actions/setup-python@v4',
       with: {
-        pythonVersion: '3.x',
+        pythonVersion: '3.8',
       },
     },
     {
@@ -89,10 +113,38 @@ deployDocs?.addJob('deploy-docs', {
       },
     },
     {
-      run: 'pip install mkdocs-material',
+      name: 'Install doc generations dependencies',
+      run: [
+        'pip install --upgrade pip',
+        'pip install -r docs/requirements.txt',
+      ].join('\n'),
     },
     {
-      run: 'mkdocs gh-deploy --force',
+      name: 'Setup docs deploy',
+      run: [
+        'git config user.name github-actions',
+        'git config user.email github-actions@github.com',
+      ].join('\n'),
+    },
+    {
+      name: 'Get the version',
+      id: 'getVersion',
+      run: [
+        'echo "version=$(git describe --tags --abbrev=0)"',
+        'echo "version=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"',
+      ].join('\n'),
+    },
+    {
+      name: 'Build and deploy documentation',
+      env: {
+        ALIAS: 'latest',
+        VERSION: '${{ needs.deploy-docs.outputs.version }}',
+      },
+      run: [
+        'echo ${{ env.VERSION }}',
+        'mkdocs build',
+        'mkdocs gh-deploy --force',
+      ].join('\n'),
     },
   ],
 });

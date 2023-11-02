@@ -8,20 +8,54 @@ on:
       - release
     types:
       - completed
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+        description: Version to build and publish docs
+      alias:
+        required: true
+        type: string
+        description: Alias to associate version (latest, stage)
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pages: write
+    outputs:
+      getVersion: ${{ steps.getVersion.outputs.version }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v4
         with:
-          pythonVersion: 3.x
+          pythonVersion: "3.8"
       - run: echo "cache_id=$(date --utc "+%V")" >> $GITHUB_ENV
       - uses: actions/cache@v3
         with:
           key: mkdocs-material-${{ env.cache_id }}
           path: .cache
-      - run: pip install mkdocs-material
-      - run: mkdocs gh-deploy --force
+      - name: Install doc generations dependencies
+        run: |-
+          pip install --upgrade pip
+          pip install -r docs/requirements.txt
+      - name: Setup docs deploy
+        run: |-
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: Get the version
+        id: getVersion
+        run: |-
+          echo "version=$(git describe --tags --abbrev=0)"
+          echo "version=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
+      - name: Build and deploy documentation
+        env:
+          ALIAS: latest
+          VERSION: ${{ needs.deploy-docs.outputs.version }}
+        run: |-
+          echo ${{ env.VERSION }}
+          mkdocs build
+          mkdocs gh-deploy --force
