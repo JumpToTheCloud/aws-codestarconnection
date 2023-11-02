@@ -143,8 +143,7 @@ deployDocs?.addJob('deploy-docs', {
       run: [
         'echo ${{ env.VERSION }}',
         'mkdocs build',
-        'mike deploy --push --update-aliases ${{ env.VERSION }} ${{ env.ALIAS }}',
-        'mike set-default latest',
+        'mkdocs gh-deploy --force',
       ].join('\n'),
     },
   ],
