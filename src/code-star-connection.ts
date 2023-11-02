@@ -426,6 +426,28 @@ export interface CodeStarConnectionProps {
  *   }
  */
 export class CodeStarConnection extends CodeStarConnectionBase {
+  /**
+   * Import an externally defined Code Star Connection using its ARN.
+   *
+   * @param scope  the construct that will "own" the imported key.
+   * @param id     the id of the imported key in the construct tree.
+   * @param codestarConnectionArn the ARN of an existing Code Star Connection.
+   */
+  public static fromCodeStarConnectionArn(
+    scope: Construct,
+    id: string,
+    codestarConnectionArn: string
+  ): ICodeStarConnection {
+    class Import extends CodeStarConnectionBase {
+      public connectionName = '';
+      public connectionArn = codestarConnectionArn;
+    }
+
+    return new Import(scope, id, {
+      environmentFromArn: codestarConnectionArn,
+    });
+  }
+
   public readonly connectionName: string;
   public readonly connectionArn: string;
 

@@ -225,3 +225,36 @@ describe('Grants permisions', () => {
     });
   });
 });
+
+describe('Static methods', () => {
+  it('should return a instance of code star connection and use the grantUse method', () => {
+    // GIVEN
+    const app = new App();
+    const stack = new Stack(app, 'TestStack');
+
+    // WHEN
+    const codestarConnection = CodeStarConnection.fromCodeStarConnectionArn(
+      stack,
+      'CodeStarConnectionFromArn',
+      'arn:aws:codestar-connections:eu-west-1:123456789012:connection/8c86942e-a7ca-4a4a-8b63-e2f7f5efaeee'
+    );
+
+    const role = new Role(stack, 'Role', {
+      assumedBy: new AnyPrincipal(),
+    });
+
+    codestarConnection.grantUse(role);
+
+    Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
+      PolicyDocument: {
+        Statement: [
+          {
+            Action: CodeStarConnectionPolicyActions.USE_CONNECTION,
+            Effect: 'Allow',
+            Resource: codestarConnection.connectionArn,
+          },
+        ],
+      },
+    });
+  });
+});
