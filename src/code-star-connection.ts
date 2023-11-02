@@ -430,7 +430,7 @@ export class CodeStarConnection extends CodeStarConnectionBase {
    * Import an externally defined Code Star Connection using its ARN.
    *
    * @param scope  the construct that will "own" the imported key.
-   * @param id     the id of the imported key in the construct tree.
+   * @param id     the id of the imported code star conection in the construct tree.
    * @param codestarConnectionArn the ARN of an existing Code Star Connection.
    */
   public static fromCodeStarConnectionArn(

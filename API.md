@@ -304,7 +304,7 @@ the construct that will "own" the imported key.
 
 - *Type:* string
 
-the id of the imported key in the construct tree.
+the id of the imported code star conection in the construct tree.
 
 ---
 
