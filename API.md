@@ -214,6 +214,7 @@ Grant the given identity permissions to use this code star connetion.
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.fromCodeStarConnectionArn">fromCodeStarConnectionArn</a></code> | Import an externally defined Code Star Connection using its ARN. |
 
 ---
 
@@ -278,6 +279,40 @@ Check whether the given construct is a Resource.
 ###### `construct`<sup>Required</sup> <a name="construct" id="@jttc/aws-codestarconnection.CodeStarConnection.isResource.parameter.construct"></a>
 
 - *Type:* constructs.IConstruct
+
+---
+
+##### `fromCodeStarConnectionArn` <a name="fromCodeStarConnectionArn" id="@jttc/aws-codestarconnection.CodeStarConnection.fromCodeStarConnectionArn"></a>
+
+```typescript
+import { CodeStarConnection } from '@jttc/aws-codestarconnection'
+
+CodeStarConnection.fromCodeStarConnectionArn(scope: Construct, id: string, codestarConnectionArn: string)
+```
+
+Import an externally defined Code Star Connection using its ARN.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@jttc/aws-codestarconnection.CodeStarConnection.fromCodeStarConnectionArn.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+the construct that will "own" the imported key.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@jttc/aws-codestarconnection.CodeStarConnection.fromCodeStarConnectionArn.parameter.id"></a>
+
+- *Type:* string
+
+the id of the imported code star conection in the construct tree.
+
+---
+
+###### `codestarConnectionArn`<sup>Required</sup> <a name="codestarConnectionArn" id="@jttc/aws-codestarconnection.CodeStarConnection.fromCodeStarConnectionArn.parameter.codestarConnectionArn"></a>
+
+- *Type:* string
+
+the ARN of an existing Code Star Connection.
 
 ---
 
