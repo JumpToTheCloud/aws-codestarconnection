@@ -1,4 +1,28 @@
-# AWS CodeStar Connection
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+![npm](https://img.shields.io/npm/v/%40jttc%2Faws-codestarconnection)
+
+# AWS CodeStar Connection Construct Library
+
+This package contains constructs for working with Amazon CodeStar Connection.
+
+## CodeStar Connection
+Define a Codestar Connection by creating a new instance of CodeStarConnection. You can create a connection for different providers
+
+``` typescript
+const codestartConnection = new CodeStarConnection(
+  this,
+  'CodeStarConnection',
+    {
+      connectionName: 'github-connection',
+      providerType: CodeStarConnectionProviderType.GITHUB,
+    }
+  );
+```
+
+
+
+
+
 
 # API Reference <a name="API Reference" id="api-reference"></a>
 
@@ -62,6 +86,11 @@ new CodeStarConnection(scope: Construct, id: string, props: CodeStarConnectionPr
 | --- | --- |
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.grant">grant</a></code> | Grant the given principal identity permissions to perform the actions on this code star connection. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.grantAdmin">grantAdmin</a></code> | you want to grant an IAM user in your AWS account full access to AWS CodeStar Connections, so that the user can add, update, and delete connections. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.grantConnectionFullAccess">grantConnectionFullAccess</a></code> | Grant the given identity permission to full access to the code star connection. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.grantRead">grantRead</a></code> | you want to grant an IAM user in your account read-only access to the connections in your AWS account. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.grantUse">grantUse</a></code> | Grant the given identity permissions to use this code star connetion. |
 
 ---
 
@@ -92,6 +121,88 @@ account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
 ###### `policy`<sup>Required</sup> <a name="policy" id="@jttc/aws-codestarconnection.CodeStarConnection.applyRemovalPolicy.parameter.policy"></a>
 
 - *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+##### `grant` <a name="grant" id="@jttc/aws-codestarconnection.CodeStarConnection.grant"></a>
+
+```typescript
+public grant(grantee: IGrantable, actions: string): Grant
+```
+
+Grant the given principal identity permissions to perform the actions on this code star connection.
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.CodeStarConnection.grant.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+###### `actions`<sup>Required</sup> <a name="actions" id="@jttc/aws-codestarconnection.CodeStarConnection.grant.parameter.actions"></a>
+
+- *Type:* string
+
+---
+
+##### `grantAdmin` <a name="grantAdmin" id="@jttc/aws-codestarconnection.CodeStarConnection.grantAdmin"></a>
+
+```typescript
+public grantAdmin(grantee: IGrantable): Grant
+```
+
+you want to grant an IAM user in your AWS account full access to AWS CodeStar Connections, so that the user can add, update, and delete connections.
+
+> [https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-fullaccess](https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-fullaccess)
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.CodeStarConnection.grantAdmin.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantConnectionFullAccess` <a name="grantConnectionFullAccess" id="@jttc/aws-codestarconnection.CodeStarConnection.grantConnectionFullAccess"></a>
+
+```typescript
+public grantConnectionFullAccess(grantee: IGrantable): Grant
+```
+
+Grant the given identity permission to full access to the code star connection.
+
+> [https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-clisdk](https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-clisdk)
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.CodeStarConnection.grantConnectionFullAccess.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantRead` <a name="grantRead" id="@jttc/aws-codestarconnection.CodeStarConnection.grantRead"></a>
+
+```typescript
+public grantRead(grantee: IGrantable): Grant
+```
+
+you want to grant an IAM user in your account read-only access to the connections in your AWS account.
+
+> [https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-readonly](https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-readonly)
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.CodeStarConnection.grantRead.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantUse` <a name="grantUse" id="@jttc/aws-codestarconnection.CodeStarConnection.grantUse"></a>
+
+```typescript
+public grantUse(grantee: IGrantable): Grant
+```
+
+Grant the given identity permissions to use this code star connetion.
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.CodeStarConnection.grantUse.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
 
 ---
 
@@ -293,6 +404,11 @@ new CodeStarConnectionBase(scope: Construct, id: string, props?: ResourceProps)
 | --- | --- |
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase.grant">grant</a></code> | Grant the given principal identity permissions to perform the actions on this code star connection. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase.grantAdmin">grantAdmin</a></code> | you want to grant an IAM user in your AWS account full access to AWS CodeStar Connections, so that the user can add, update, and delete connections. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase.grantConnectionFullAccess">grantConnectionFullAccess</a></code> | Grant the given identity permission to full access to the code star connection. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase.grantRead">grantRead</a></code> | you want to grant an IAM user in your account read-only access to the connections in your AWS account. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase.grantUse">grantUse</a></code> | Grant the given identity permissions to use this code star connetion. |
 
 ---
 
@@ -323,6 +439,88 @@ account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
 ###### `policy`<sup>Required</sup> <a name="policy" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.applyRemovalPolicy.parameter.policy"></a>
 
 - *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+##### `grant` <a name="grant" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.grant"></a>
+
+```typescript
+public grant(grantee: IGrantable, actions: string): Grant
+```
+
+Grant the given principal identity permissions to perform the actions on this code star connection.
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.grant.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+###### `actions`<sup>Required</sup> <a name="actions" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.grant.parameter.actions"></a>
+
+- *Type:* string
+
+---
+
+##### `grantAdmin` <a name="grantAdmin" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.grantAdmin"></a>
+
+```typescript
+public grantAdmin(grantee: IGrantable): Grant
+```
+
+you want to grant an IAM user in your AWS account full access to AWS CodeStar Connections, so that the user can add, update, and delete connections.
+
+> [https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-fullaccess](https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-fullaccess)
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.grantAdmin.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantConnectionFullAccess` <a name="grantConnectionFullAccess" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.grantConnectionFullAccess"></a>
+
+```typescript
+public grantConnectionFullAccess(grantee: IGrantable): Grant
+```
+
+Grant the given identity permission to full access to the code star connection.
+
+> [https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-clisdk](https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-clisdk)
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.grantConnectionFullAccess.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantRead` <a name="grantRead" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.grantRead"></a>
+
+```typescript
+public grantRead(grantee: IGrantable): Grant
+```
+
+you want to grant an IAM user in your account read-only access to the connections in your AWS account.
+
+> [https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-readonly](https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-readonly)
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.grantRead.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantUse` <a name="grantUse" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.grantUse"></a>
+
+```typescript
+public grantUse(grantee: IGrantable): Grant
+```
+
+Grant the given identity permissions to use this code star connetion.
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.grantUse.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
 
 ---
 
@@ -499,7 +697,7 @@ const codeStarConnectionProps: CodeStarConnectionProps = { ... }
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionProps.property.connectionName">connectionName</a></code> | <code>string</code> | The name of the connection. |
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionProps.property.providerType">providerType</a></code> | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionProviderType">CodeStarConnectionProviderType</a></code> | The type of the connection. |
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionProps.property.hostArn">hostArn</a></code> | <code>string</code> | The Amazon Resource Name (ARN) of the host associated with the connection. |
-| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | Determine what happens to the repository when the resource/stack is deleted. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | Determine what happens to the code star connection when the resource/stack is deleted. |
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionProps.property.tags">tags</a></code> | <code>aws-cdk-lib.Tag[]</code> | The list of tags associated with the connection. |
 
 ---
@@ -551,7 +749,7 @@ public readonly removalPolicy: RemovalPolicy;
 - *Type:* aws-cdk-lib.RemovalPolicy
 - *Default:* RemovalPolicy.Retain
 
-Determine what happens to the repository when the resource/stack is deleted.
+Determine what happens to the code star connection when the resource/stack is deleted.
 
 ---
 
@@ -576,6 +774,93 @@ The list of tags associated with the connection.
 
 - *Implemented By:* <a href="#@jttc/aws-codestarconnection.CodeStarConnection">CodeStarConnection</a>, <a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase">CodeStarConnectionBase</a>, <a href="#@jttc/aws-codestarconnection.ICodeStarConnection">ICodeStarConnection</a>
 
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jttc/aws-codestarconnection.ICodeStarConnection.grant">grant</a></code> | Grant the given principal identity permissions to perform the actions on this code star connection. |
+| <code><a href="#@jttc/aws-codestarconnection.ICodeStarConnection.grantAdmin">grantAdmin</a></code> | Grant the given identity full access to AWS CodeStar Connections so that the user can add, update, and delete connections. |
+| <code><a href="#@jttc/aws-codestarconnection.ICodeStarConnection.grantConnectionFullAccess">grantConnectionFullAccess</a></code> | Grant the given identity permission to connection full access to the code star connection. |
+| <code><a href="#@jttc/aws-codestarconnection.ICodeStarConnection.grantRead">grantRead</a></code> | you want to grant an IAM user in your account read-only access to the connections in your AWS account. |
+| <code><a href="#@jttc/aws-codestarconnection.ICodeStarConnection.grantUse">grantUse</a></code> | Grant the given identity permissions to use this code start connection. |
+
+---
+
+##### `grant` <a name="grant" id="@jttc/aws-codestarconnection.ICodeStarConnection.grant"></a>
+
+```typescript
+public grant(grantee: IGrantable, actions: string): Grant
+```
+
+Grant the given principal identity permissions to perform the actions on this code star connection.
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.ICodeStarConnection.grant.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+###### `actions`<sup>Required</sup> <a name="actions" id="@jttc/aws-codestarconnection.ICodeStarConnection.grant.parameter.actions"></a>
+
+- *Type:* string
+
+---
+
+##### `grantAdmin` <a name="grantAdmin" id="@jttc/aws-codestarconnection.ICodeStarConnection.grantAdmin"></a>
+
+```typescript
+public grantAdmin(grantee: IGrantable): Grant
+```
+
+Grant the given identity full access to AWS CodeStar Connections so that the user can add, update, and delete connections.
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.ICodeStarConnection.grantAdmin.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantConnectionFullAccess` <a name="grantConnectionFullAccess" id="@jttc/aws-codestarconnection.ICodeStarConnection.grantConnectionFullAccess"></a>
+
+```typescript
+public grantConnectionFullAccess(grantee: IGrantable): Grant
+```
+
+Grant the given identity permission to connection full access to the code star connection.
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.ICodeStarConnection.grantConnectionFullAccess.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantRead` <a name="grantRead" id="@jttc/aws-codestarconnection.ICodeStarConnection.grantRead"></a>
+
+```typescript
+public grantRead(grantee: IGrantable): Grant
+```
+
+you want to grant an IAM user in your account read-only access to the connections in your AWS account.
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.ICodeStarConnection.grantRead.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantUse` <a name="grantUse" id="@jttc/aws-codestarconnection.ICodeStarConnection.grantUse"></a>
+
+```typescript
+public grantUse(grantee: IGrantable): Grant
+```
+
+Grant the given identity permissions to use this code start connection.
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.ICodeStarConnection.grantUse.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
 
 #### Properties <a name="Properties" id="Properties"></a>
 
