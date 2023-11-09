@@ -300,6 +300,21 @@ export abstract class CodeStarConnectionBase
   public abstract readonly connectionArn: string;
 
   /**
+   * Validate if the name of the code connection is
+   * longer thatn 32 characters
+   * @param {string} name Name of the connection
+   * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codestarconnections-connection.html#cfn-codestarconnections-connection-connectionname
+   */
+  public validateConnectionName(name: string): void {
+    // Rules codified from https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codestarconnections-connection.html#cfn-codestarconnections-connection-connectionname
+    if (name.length < 2 || name.length > 32) {
+      Annotations.of(this).addError(
+        'Connection Name must be at least 1 and no more than 32 characters'
+      );
+    }
+  }
+
+  /**
    * Grant the given principal identity permissions to perform the actions on this code star connection
    */
   public grant(grantee: IGrantable, ...actions: string[]) {
@@ -469,14 +484,5 @@ export class CodeStarConnection extends CodeStarConnectionBase {
 
     this.connectionName = props.connectionName;
     this.connectionArn = resource.attrConnectionArn;
-  }
-
-  private validateConnectionName(qualifier: string): void {
-    // Rules codified from https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codestarconnections-connection.html#cfn-codestarconnections-connection-connectionname
-    if (qualifier.length < 2 || qualifier.length > 32) {
-      Annotations.of(this).addError(
-        'Connection Name must be at least 1 and no more than 32 characters'
-      );
-    }
   }
 }

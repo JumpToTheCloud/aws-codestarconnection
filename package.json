@@ -72,7 +72,9 @@
     "constructs": "^10.3.0"
   },
   "keywords": [
-    "cdk"
+    "aws",
+    "cdk",
+    "codestarconnection"
   ],
   "main": "lib/index.js",
   "license": "Apache-2.0",

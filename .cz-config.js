@@ -26,6 +26,7 @@ module.exports = {
 
   scopes: [
     { name: 'codestarconnection' },
+    { name: 'github-codestarconnection' },
     { name: 'projen' },
     { name: 'docs' },
   ],

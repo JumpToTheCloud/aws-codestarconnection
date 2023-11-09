@@ -13,6 +13,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   constructsVersion: '10.3.0',
   repositoryUrl: 'https://github.com/JumpToTheCloud/aws-codestarconnection',
   prettier: true,
+  keywords: ['aws', 'cdk', 'codestarconnection'],
   prettierOptions: {
     settings: {
       trailingComma: TrailingComma.ES5,
