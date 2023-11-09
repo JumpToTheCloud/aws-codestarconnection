@@ -18,6 +18,7 @@ npm install @jttc/aws-codestarconnection
 
 The Construct Library has the following L2 Construct:
 
-| Construct               | Description                                                    |
-|-------------------------|----------------------------------------------------------------|
-| [CodeStarConnection](#) | We create a Code Star Connection for every Provider available  |
+| Construct                     | Description                                                    |
+|-------------------------------|----------------------------------------------------------------|
+| [CodeStarConnection](#)       | We create a Code Star Connection for every Provider available  |
+| [GithubCodeStarConnection](#) | We create a Code Star Connection for Github                    |

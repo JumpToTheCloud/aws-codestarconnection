@@ -92,6 +92,7 @@ new CodeStarConnection(scope: Construct, id: string, props: CodeStarConnectionPr
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.grantConnectionFullAccess">grantConnectionFullAccess</a></code> | Grant the given identity permission to full access to the code star connection. |
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.grantRead">grantRead</a></code> | you want to grant an IAM user in your account read-only access to the connections in your AWS account. |
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.grantUse">grantUse</a></code> | Grant the given identity permissions to use this code star connetion. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnection.validateConnectionName">validateConnectionName</a></code> | Validate if the name of the code connection is longer thatn 32 characters. |
 
 ---
 
@@ -204,6 +205,24 @@ Grant the given identity permissions to use this code star connetion.
 ###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.CodeStarConnection.grantUse.parameter.grantee"></a>
 
 - *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `validateConnectionName` <a name="validateConnectionName" id="@jttc/aws-codestarconnection.CodeStarConnection.validateConnectionName"></a>
+
+```typescript
+public validateConnectionName(name: string): void
+```
+
+Validate if the name of the code connection is longer thatn 32 characters.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codestarconnections-connection.html#cfn-codestarconnections-connection-connectionname](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codestarconnections-connection.html#cfn-codestarconnections-connection-connectionname)
+
+###### `name`<sup>Required</sup> <a name="name" id="@jttc/aws-codestarconnection.CodeStarConnection.validateConnectionName.parameter.name"></a>
+
+- *Type:* string
+
+Name of the connection.
 
 ---
 
@@ -445,6 +464,7 @@ new CodeStarConnectionBase(scope: Construct, id: string, props?: ResourceProps)
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase.grantConnectionFullAccess">grantConnectionFullAccess</a></code> | Grant the given identity permission to full access to the code star connection. |
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase.grantRead">grantRead</a></code> | you want to grant an IAM user in your account read-only access to the connections in your AWS account. |
 | <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase.grantUse">grantUse</a></code> | Grant the given identity permissions to use this code star connetion. |
+| <code><a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase.validateConnectionName">validateConnectionName</a></code> | Validate if the name of the code connection is longer thatn 32 characters. |
 
 ---
 
@@ -557,6 +577,24 @@ Grant the given identity permissions to use this code star connetion.
 ###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.grantUse.parameter.grantee"></a>
 
 - *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `validateConnectionName` <a name="validateConnectionName" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.validateConnectionName"></a>
+
+```typescript
+public validateConnectionName(name: string): void
+```
+
+Validate if the name of the code connection is longer thatn 32 characters.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codestarconnections-connection.html#cfn-codestarconnections-connection-connectionname](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codestarconnections-connection.html#cfn-codestarconnections-connection-connectionname)
+
+###### `name`<sup>Required</sup> <a name="name" id="@jttc/aws-codestarconnection.CodeStarConnectionBase.validateConnectionName.parameter.name"></a>
+
+- *Type:* string
+
+Name of the connection.
 
 ---
 
@@ -714,6 +752,385 @@ The name of the Code Star connection.
 ---
 
 
+### GithubCodeStarConnection <a name="GithubCodeStarConnection" id="@jttc/aws-codestarconnection.GithubCodeStarConnection"></a>
+
+Define a Github CodeStar Connection resource.
+
+*Example*
+
+```typescript
+  new GithubCodeStarConnection(this, 'GithubConnection')
+```
+
+
+#### Initializers <a name="Initializers" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.Initializer"></a>
+
+```typescript
+import { GithubCodeStarConnection } from '@jttc/aws-codestarconnection'
+
+new GithubCodeStarConnection(scope: Construct, id: string, props?: GithubCodeStarConnetionProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.Initializer.parameter.props">props</a></code> | <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnetionProps">GithubCodeStarConnetionProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Optional</sup> <a name="props" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@jttc/aws-codestarconnection.GithubCodeStarConnetionProps">GithubCodeStarConnetionProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.grant">grant</a></code> | Grant the given principal identity permissions to perform the actions on this code star connection. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.grantAdmin">grantAdmin</a></code> | you want to grant an IAM user in your AWS account full access to AWS CodeStar Connections, so that the user can add, update, and delete connections. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.grantConnectionFullAccess">grantConnectionFullAccess</a></code> | Grant the given identity permission to full access to the code star connection. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.grantRead">grantRead</a></code> | you want to grant an IAM user in your account read-only access to the connections in your AWS account. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.grantUse">grantUse</a></code> | Grant the given identity permissions to use this code star connetion. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.validateConnectionName">validateConnectionName</a></code> | Validate if the name of the code connection is longer thatn 32 characters. |
+
+---
+
+##### `toString` <a name="toString" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy: RemovalPolicy): void
+```
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+###### `policy`<sup>Required</sup> <a name="policy" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+##### `grant` <a name="grant" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.grant"></a>
+
+```typescript
+public grant(grantee: IGrantable, actions: string): Grant
+```
+
+Grant the given principal identity permissions to perform the actions on this code star connection.
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.grant.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+###### `actions`<sup>Required</sup> <a name="actions" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.grant.parameter.actions"></a>
+
+- *Type:* string
+
+---
+
+##### `grantAdmin` <a name="grantAdmin" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.grantAdmin"></a>
+
+```typescript
+public grantAdmin(grantee: IGrantable): Grant
+```
+
+you want to grant an IAM user in your AWS account full access to AWS CodeStar Connections, so that the user can add, update, and delete connections.
+
+> [https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-fullaccess](https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-fullaccess)
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.grantAdmin.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantConnectionFullAccess` <a name="grantConnectionFullAccess" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.grantConnectionFullAccess"></a>
+
+```typescript
+public grantConnectionFullAccess(grantee: IGrantable): Grant
+```
+
+Grant the given identity permission to full access to the code star connection.
+
+> [https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-clisdk](https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-clisdk)
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.grantConnectionFullAccess.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantRead` <a name="grantRead" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.grantRead"></a>
+
+```typescript
+public grantRead(grantee: IGrantable): Grant
+```
+
+you want to grant an IAM user in your account read-only access to the connections in your AWS account.
+
+> [https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-readonly](https://docs.aws.amazon.com/dtconsole/latest/userguide/security_iam_id-based-policy-examples-connections.html#security_iam_id-based-policy-examples-connections-readonly)
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.grantRead.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantUse` <a name="grantUse" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.grantUse"></a>
+
+```typescript
+public grantUse(grantee: IGrantable): Grant
+```
+
+Grant the given identity permissions to use this code star connetion.
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.grantUse.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `validateConnectionName` <a name="validateConnectionName" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.validateConnectionName"></a>
+
+```typescript
+public validateConnectionName(name: string): void
+```
+
+Validate if the name of the code connection is longer thatn 32 characters.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codestarconnections-connection.html#cfn-codestarconnections-connection-connectionname](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codestarconnections-connection.html#cfn-codestarconnections-connection-connectionname)
+
+###### `name`<sup>Required</sup> <a name="name" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.validateConnectionName.parameter.name"></a>
+
+- *Type:* string
+
+Name of the connection.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.fromCodeStarConnectionArn">fromCodeStarConnectionArn</a></code> | Import an externally defined Code Star Connection using its ARN. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.isConstruct"></a>
+
+```typescript
+import { GithubCodeStarConnection } from '@jttc/aws-codestarconnection'
+
+GithubCodeStarConnection.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isOwnedResource` <a name="isOwnedResource" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.isOwnedResource"></a>
+
+```typescript
+import { GithubCodeStarConnection } from '@jttc/aws-codestarconnection'
+
+GithubCodeStarConnection.isOwnedResource(construct: IConstruct)
+```
+
+Returns true if the construct was created by CDK, and false otherwise.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.isOwnedResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `isResource` <a name="isResource" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.isResource"></a>
+
+```typescript
+import { GithubCodeStarConnection } from '@jttc/aws-codestarconnection'
+
+GithubCodeStarConnection.isResource(construct: IConstruct)
+```
+
+Check whether the given construct is a Resource.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.isResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `fromCodeStarConnectionArn` <a name="fromCodeStarConnectionArn" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.fromCodeStarConnectionArn"></a>
+
+```typescript
+import { GithubCodeStarConnection } from '@jttc/aws-codestarconnection'
+
+GithubCodeStarConnection.fromCodeStarConnectionArn(scope: Construct, id: string, codestarConnectionArn: string)
+```
+
+Import an externally defined Code Star Connection using its ARN.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.fromCodeStarConnectionArn.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+the construct that will "own" the imported key.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.fromCodeStarConnectionArn.parameter.id"></a>
+
+- *Type:* string
+
+the id of the imported code star conection in the construct tree.
+
+---
+
+###### `codestarConnectionArn`<sup>Required</sup> <a name="codestarConnectionArn" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.fromCodeStarConnectionArn.parameter.codestarConnectionArn"></a>
+
+- *Type:* string
+
+the ARN of an existing Code Star Connection.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.property.connectionArn">connectionArn</a></code> | <code>string</code> | The ARN of the Code Star connection. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection.property.connectionName">connectionName</a></code> | <code>string</code> | The name of the CodeStar connection. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+##### `connectionArn`<sup>Required</sup> <a name="connectionArn" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.property.connectionArn"></a>
+
+```typescript
+public readonly connectionArn: string;
+```
+
+- *Type:* string
+
+The ARN of the Code Star connection.
+
+---
+
+##### `connectionName`<sup>Required</sup> <a name="connectionName" id="@jttc/aws-codestarconnection.GithubCodeStarConnection.property.connectionName"></a>
+
+```typescript
+public readonly connectionName: string;
+```
+
+- *Type:* string
+
+The name of the CodeStar connection.
+
+---
+
+
 ## Structs <a name="Structs" id="Structs"></a>
 
 ### CodeStarConnectionProps <a name="CodeStarConnectionProps" id="@jttc/aws-codestarconnection.CodeStarConnectionProps"></a>
@@ -801,6 +1218,78 @@ The list of tags associated with the connection.
 
 ---
 
+### GithubCodeStarConnetionProps <a name="GithubCodeStarConnetionProps" id="@jttc/aws-codestarconnection.GithubCodeStarConnetionProps"></a>
+
+#### Initializer <a name="Initializer" id="@jttc/aws-codestarconnection.GithubCodeStarConnetionProps.Initializer"></a>
+
+```typescript
+import { GithubCodeStarConnetionProps } from '@jttc/aws-codestarconnection'
+
+const githubCodeStarConnetionProps: GithubCodeStarConnetionProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnetionProps.property.connectionName">connectionName</a></code> | <code>string</code> | The name of the connection. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnetionProps.property.hostArn">hostArn</a></code> | <code>string</code> | The Amazon Resource Name (ARN) of the host associated with the connection. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnetionProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | Determine what happens to the code star connection when the resource/stack is deleted. |
+| <code><a href="#@jttc/aws-codestarconnection.GithubCodeStarConnetionProps.property.tags">tags</a></code> | <code>aws-cdk-lib.Tag[]</code> | The list of tags associated with the connection. |
+
+---
+
+##### `connectionName`<sup>Optional</sup> <a name="connectionName" id="@jttc/aws-codestarconnection.GithubCodeStarConnetionProps.property.connectionName"></a>
+
+```typescript
+public readonly connectionName: string;
+```
+
+- *Type:* string
+
+The name of the connection.
+
+Connection names must be in an AWS user account.
+
+---
+
+##### `hostArn`<sup>Optional</sup> <a name="hostArn" id="@jttc/aws-codestarconnection.GithubCodeStarConnetionProps.property.hostArn"></a>
+
+```typescript
+public readonly hostArn: string;
+```
+
+- *Type:* string
+
+The Amazon Resource Name (ARN) of the host associated with the connection.
+
+---
+
+##### `removalPolicy`<sup>Optional</sup> <a name="removalPolicy" id="@jttc/aws-codestarconnection.GithubCodeStarConnetionProps.property.removalPolicy"></a>
+
+```typescript
+public readonly removalPolicy: RemovalPolicy;
+```
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+- *Default:* RemovalPolicy.Retain
+
+Determine what happens to the code star connection when the resource/stack is deleted.
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="@jttc/aws-codestarconnection.GithubCodeStarConnetionProps.property.tags"></a>
+
+```typescript
+public readonly tags: Tag[];
+```
+
+- *Type:* aws-cdk-lib.Tag[]
+
+The list of tags associated with the connection.
+
+---
+
 
 ## Protocols <a name="Protocols" id="Protocols"></a>
 
@@ -808,7 +1297,7 @@ The list of tags associated with the connection.
 
 - *Extends:* aws-cdk-lib.IResource
 
-- *Implemented By:* <a href="#@jttc/aws-codestarconnection.CodeStarConnection">CodeStarConnection</a>, <a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase">CodeStarConnectionBase</a>, <a href="#@jttc/aws-codestarconnection.ICodeStarConnection">ICodeStarConnection</a>
+- *Implemented By:* <a href="#@jttc/aws-codestarconnection.CodeStarConnection">CodeStarConnection</a>, <a href="#@jttc/aws-codestarconnection.CodeStarConnectionBase">CodeStarConnectionBase</a>, <a href="#@jttc/aws-codestarconnection.GithubCodeStarConnection">GithubCodeStarConnection</a>, <a href="#@jttc/aws-codestarconnection.ICodeStarConnection">ICodeStarConnection</a>
 
 #### Methods <a name="Methods" id="Methods"></a>
 
