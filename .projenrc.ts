@@ -14,6 +14,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
   repositoryUrl: 'https://github.com/JumpToTheCloud/aws-codestarconnection',
   prettier: true,
   keywords: ['aws', 'cdk', 'codestarconnection'],
+  publishToPypi: {
+    distName: 'aws-codestarconnection',
+    module: 'aws_codestarconnection',
+  },
   prettierOptions: {
     settings: {
       trailingComma: TrailingComma.ES5,
