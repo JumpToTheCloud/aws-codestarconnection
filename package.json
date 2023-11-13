@@ -61,7 +61,7 @@
     "jsii-rosetta": "~5.0.0",
     "npm-check-updates": "^16",
     "prettier": "^3.0.3",
-    "projen": "^0.76.26",
+    "projen": "^0.76.27",
     "standard-version": "^9",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
