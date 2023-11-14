@@ -1,4 +1,4 @@
-import { awscdk } from 'projen';
+import { ReleasableCommits, awscdk } from 'projen';
 import { JobPermission } from 'projen/lib/github/workflows-model';
 import { TrailingComma } from 'projen/lib/javascript';
 
@@ -32,6 +32,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
   github: true,
+  releasableCommits: ReleasableCommits.featuresAndFixes(),
+  releaseFailureIssue: true,
   deps: [] /* Runtime dependencies of this module. */,
   peerDeps: [] /* Peer dependencies of this module. */,
   description:
