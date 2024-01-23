@@ -5,9 +5,9 @@ import { TrailingComma } from 'projen/lib/javascript';
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Antonio Márquez Pérez',
   authorAddress: 'antonio.marquez@jumptothecloud.tech',
-  cdkVersion: '2.103.0',
+  cdkVersion: '2.122.0',
   defaultReleaseBranch: 'main',
-  jsiiVersion: '~5.0.0',
+  jsiiVersion: '~5.3.0',
   name: '@jttc/aws-codestarconnection',
   projenrcTs: true,
   constructsVersion: '10.3.0',
