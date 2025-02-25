@@ -1,16 +1,20 @@
 import { ReleasableCommits, awscdk } from 'projen';
-import { JobPermission } from 'projen/lib/github/workflows-model';
+import { GithubCredentials } from 'projen/lib/github';
+import {
+  AppPermission,
+  JobPermission,
+} from 'projen/lib/github/workflows-model';
 import { TrailingComma } from 'projen/lib/javascript';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Antonio Márquez Pérez',
   authorAddress: 'antonio.marquez@jumptothecloud.tech',
-  cdkVersion: '2.122.0',
+  cdkVersion: '2.173.0',
   defaultReleaseBranch: 'main',
-  jsiiVersion: '~5.3.0',
+  jsiiVersion: '~5.7.0',
   name: '@jttc/aws-codestarconnection',
   projenrcTs: true,
-  constructsVersion: '10.3.0',
+  constructsVersion: '10.4.2',
   repositoryUrl: 'https://github.com/JumpToTheCloud/aws-codestarconnection',
   prettier: true,
   keywords: ['aws', 'cdk', 'codestarconnection'],
@@ -43,6 +47,14 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'cz-customizable',
   ] /* Build dependencies for this module. */,
   packageName: '@jttc/aws-codestarconnection' /* The "name" in package.json. */,
+  githubOptions: {
+    projenCredentials: GithubCredentials.fromApp({
+      permissions: {
+        pullRequests: AppPermission.WRITE,
+        contents: AppPermission.WRITE,
+      },
+    }),
+  },
 });
 
 project.addScripts({
