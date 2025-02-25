@@ -1,5 +1,9 @@
 import { ReleasableCommits, awscdk } from 'projen';
-import { JobPermission } from 'projen/lib/github/workflows-model';
+import { GithubCredentials } from 'projen/lib/github';
+import {
+  AppPermission,
+  JobPermission,
+} from 'projen/lib/github/workflows-model';
 import { TrailingComma } from 'projen/lib/javascript';
 
 const project = new awscdk.AwsCdkConstructLibrary({
@@ -43,6 +47,14 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'cz-customizable',
   ] /* Build dependencies for this module. */,
   packageName: '@jttc/aws-codestarconnection' /* The "name" in package.json. */,
+  githubOptions: {
+    projenCredentials: GithubCredentials.fromApp({
+      permissions: {
+        pullRequests: AppPermission.WRITE,
+        contents: AppPermission.WRITE,
+      },
+    }),
+  },
 });
 
 project.addScripts({
